@@ -16,6 +16,7 @@ contract MarketContract is ERC721URIStorage {
     Counters.Counter private _Nsold;
     //owner is the contract address that created the smart contract
     address payable owner;
+    //List Price is Low due to gas fee limit
     uint256 listPrice = 0.001 ether;
     constructor() ERC721("NftMarketPlace", "MTK") payable {
         owner = payable(msg.sender);
@@ -39,7 +40,7 @@ contract MarketContract is ERC721URIStorage {
         bool currentlyListed
     );
 
-    //This mapping maps tokenId to token info and is helpful when retrieving details about a tokenId
+    //This mapping maps tokenId to token info 
     mapping(uint256 => ListedToken) private idToListedToken;
 
      function getLatestIdToListedToken() public view returns (ListedToken memory) {
@@ -53,6 +54,10 @@ contract MarketContract is ERC721URIStorage {
 
     function getCurrentToken() public view returns (uint256) {
         return _nftids.current();
+    }
+
+    function getListPrice() public view returns (uint256) {
+        return listPrice;
     }
 
     function getTokenUri(uint256 tokenId) public view returns (string memory){
@@ -162,7 +167,7 @@ contract MarketContract is ERC721URIStorage {
         //approve the marketplace to sell NFTs on your behalf
         approve(address(this), tokenId);
 
-        //Transfer the listing fee to the marketplace creator
+        //Royalty Paid to the MarketPlace on all sales
         payable(owner).transfer(listPrice);
         //Transfer the proceeds from the sale to the seller of the NFT
         payable(seller).transfer(msg.value);
