@@ -8,15 +8,15 @@ const hre = require("hardhat");
 
 async function main() {
   const [owner] = await hre.ethers.getSigners();
-  const MarketContractFactory = await hre.ethers.getContractFactory("MarketContract");
-  const Market = await MarketContractFactory.deploy();
-  await Market.deployed();
+  const CoffeeContFact = await hre.ethers.getContractFactory("Coffee");
+  const Coff = await CoffeeContFact.deploy();
+  await Coff.deployed();
 
-  console.log("NFT MarketPlace Contract Deployed to: " ,Market.address);
+  console.log("NFT MarketPlace Contract Deployed to: " ,Coff.address);
   console.log("NFT MarketPlace Owner Address :" , owner.address);
 }
 
-//NFT MarketPlace Contract Deployed to:  0xFDD8eBd6C370bD398ad4477C585Cf68401A43b52
+//NFT MarketPlace Contract Deployed to:  0x0a9DC28A8941Eae600dC18c234fafE5638670ED3
 //NFT MarketPlace Owner Address : 0x34d6e9559820c6Bb6523E969420a737bBdfFCAD5
 
 // We recommend this pattern to be able to use async/await everywhere
